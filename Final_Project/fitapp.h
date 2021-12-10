@@ -83,7 +83,13 @@ public:
             cList[i] = ca;
         }
         calories+=cal;
-        calorieSort(cList,0,calories);
+        calorieSort(cList,0,calories); // sorted by calories by default.  Tests are run with this as the option.
+        //IMPORTANT: To change which macro it is sorted by, simply comment out calorieSort and replace the function
+        //Call with the corresponding method.
+        //proteinSort(cList,0,calories);
+        //carbSort(cList,0,calories);
+        //fatSort(cList,0,calories);
+
 
     }
     /**
@@ -125,6 +131,33 @@ public:
         calorieSort(list, pivot + 1, en);
 
     }
+    void fatSort(calorie list[], int st, int en){
+        if (st >= en) {
+                return;
+            }
+        int pivot = SortF(list, st, en);
+        fatSort(list, st, pivot - 1);
+        fatSort(list, pivot + 1, en);
+
+    }
+    void carbSort(calorie list[], int st, int en){
+        if (st >= en) {
+                return;
+            }
+        int pivot = SortCa(list, st, en);
+        carbSort(list, st, pivot - 1);
+        carbSort(list, pivot + 1, en);
+
+    }
+    void proteinSort(calorie list[], int st, int en){
+        if (st >= en) {
+                return;
+            }
+        int pivot = SortP(list, st, en);
+        proteinSort(list, st, pivot - 1);
+        proteinSort(list, pivot + 1, en);
+
+    }
     /**
 
       Partitioning function acting via the quick-sort algorithm.
@@ -137,6 +170,48 @@ public:
         for (int i = st; i < en; i++)
         {
             if (list[i].m.calories >= piv)
+            {
+                swap(list[i], list[pIndex]);
+                pIndex++;
+            }
+        }
+        swap (list[pIndex], list[en]);
+        return pIndex;
+    }
+    int SortCa(calorie list[], int st, int en){
+        int piv = list[en].m.carbs;
+        int pIndex = st;
+        for (int i = st; i < en; i++)
+        {
+            if (list[i].m.carbs >= piv)
+            {
+                swap(list[i], list[pIndex]);
+                pIndex++;
+            }
+        }
+        swap (list[pIndex], list[en]);
+        return pIndex;
+    }
+    int SortF(calorie list[], int st, int en){
+        int piv = list[en].m.fats;
+        int pIndex = st;
+        for (int i = st; i < en; i++)
+        {
+            if (list[i].m.fats >= piv)
+            {
+                swap(list[i], list[pIndex]);
+                pIndex++;
+            }
+        }
+        swap (list[pIndex], list[en]);
+        return pIndex;
+    }
+    int SortP(calorie list[], int st, int en){
+        int piv = list[en].m.protein;
+        int pIndex = st;
+        for (int i = st; i < en; i++)
+        {
+            if (list[i].m.protein >= piv)
             {
                 swap(list[i], list[pIndex]);
                 pIndex++;
@@ -170,7 +245,24 @@ public:
         tmp = cList[i];
         return tmp;
     }
-
+    /**
+     * @brief addFood: basic user-inputted food option.  Due to QT, does not work without preparation.
+     */
+    void addFood(){
+        cout << "Enter a food item: "<<endl;
+        string s;
+        cin >> s;
+        cout << "Enter the calories in said item: "<<endl;
+        int cal=0;
+        cin >> cal;
+        int carbs, fats, protein;
+        cout << "Enter the carbs, fats, and Protein in that order: "<<endl;
+        cin >> carbs;
+        cin >> fats;
+        cin >> protein;
+        haveMeal(s,cal,carbs,fats,protein); // ensure this is using the terminal, which is specified through your env.  cin does not work when
+        //run through the IDE.
+    }
 
 
 private:
