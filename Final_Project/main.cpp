@@ -37,9 +37,9 @@ int main(int argc, char *argv[])
     for(int i=0;i<6;i++){
         cout << a1->getList(i).m.food<<endl;
     }
-    a.haveMeal("twinkie",1000,5,4,3);
-    a.workout("jog_1h");
-    cout << a.getCal()<<" Should be 206"<<endl;
+    a.haveMeal("twinkie",200,5,4,3);
+    //a.workout("jog_1h");
+    cout << a.getCal()<<" Should be 206 calories"<<endl;
     //a.addFood(); User Inputed food item.  Cannot be used with QT by default.
 
 
